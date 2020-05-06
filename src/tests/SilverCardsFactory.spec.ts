@@ -56,10 +56,10 @@ contract('SilverCardsFactory', (accounts: string[]) => {
 
   // Skyweaver Assets
   let skyweaverAssetsContract: SkyweaverAssets
-  let arcadeumCoinContract: ERC1155Mock
   let factoryContract: SilverCardsFactory
-
+  
   // Arcadeum Coins
+  let arcadeumCoinContract: ERC1155Mock
   let userArcadeumCoinContract: ERC1155Mock
 
   // Factory manager
@@ -79,7 +79,7 @@ contract('SilverCardsFactory', (accounts: string[]) => {
   // Base Token Param
   const arcID = new BigNumber(666);
   const baseTokenAmount = new BigNumber(1000000000).mul(new BigNumber(10).pow(16))
-  const price = new BigNumber(1).mul(new BigNumber(10).pow(16))
+  const price = new BigNumber(200).mul(new BigNumber(10).pow(16))
 
   // Arrays
   const ids = new Array(nTokenTypes).fill('').map((a, i) => getBig(i+1))

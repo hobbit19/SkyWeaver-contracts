@@ -18,12 +18,20 @@ interface SilverConquestFactoryInterface extends Interface {
       encode([_newOwner]: [string]): string;
     }>;
 
-    updateMintBurnRatio: TypedFunctionDescription<{
-      encode([_newMintBurnRatio]: [BigNumberish]): string;
+    updateMintEntryRatio: TypedFunctionDescription<{
+      encode([_newMintEntryRatio]: [BigNumberish]): string;
+    }>;
+
+    updateArcPrice: TypedFunctionDescription<{
+      encode([_newPrice]: [BigNumberish]): string;
     }>;
 
     updateSilverCardsRange: TypedFunctionDescription<{
       encode([_minRange, _maxRange]: [BigNumberish, BigNumberish]): string;
+    }>;
+
+    withdraw: TypedFunctionDescription<{
+      encode([_recipient]: [string]): string;
     }>;
 
     onERC1155Received: TypedFunctionDescription<{
@@ -56,7 +64,9 @@ interface SilverConquestFactoryInterface extends Interface {
 
     getSkyweaverAssets: TypedFunctionDescription<{ encode([]: []): string }>;
 
-    getMintBurnRatio: TypedFunctionDescription<{ encode([]: []): string }>;
+    getMintEntryRatio: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getArcPrice: TypedFunctionDescription<{ encode([]: []): string }>;
 
     getAvailableSupply: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -68,16 +78,20 @@ interface SilverConquestFactoryInterface extends Interface {
   };
 
   events: {
+    ArcPriceChange: TypedEventDescription<{
+      encodeTopics([oldPrice, newPrice]: [null, null]): string[];
+    }>;
+
     IdRangeUpdated: TypedEventDescription<{
       encodeTopics([newRange]: [null]): string[];
     }>;
 
-    MintBurnRatioChange: TypedEventDescription<{
+    MintEntryRatioChange: TypedEventDescription<{
       encodeTopics([oldRatio, newRatio]: [null, null]): string[];
     }>;
 
     NewTribute: TypedEventDescription<{
-      encodeTopics([user, nBurned]: [null, null]): string[];
+      encodeTopics([user, nEntries]: [null, null]): string[];
     }>;
 
     OwnershipTransferred: TypedEventDescription<{
@@ -113,14 +127,24 @@ export class SilverConquestFactory extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
-    updateMintBurnRatio(
-      _newMintBurnRatio: BigNumberish,
+    updateMintEntryRatio(
+      _newMintEntryRatio: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    updateArcPrice(
+      _newPrice: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
     updateSilverCardsRange(
       _minRange: BigNumberish,
       _maxRange: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    withdraw(
+      _recipient: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -151,7 +175,9 @@ export class SilverConquestFactory extends Contract {
 
     getSkyweaverAssets(): Promise<string>;
 
-    getMintBurnRatio(): Promise<BigNumber>;
+    getMintEntryRatio(): Promise<BigNumber>;
+
+    getArcPrice(): Promise<BigNumber>;
 
     getAvailableSupply(): Promise<BigNumber>;
 
@@ -167,14 +193,24 @@ export class SilverConquestFactory extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
-  updateMintBurnRatio(
-    _newMintBurnRatio: BigNumberish,
+  updateMintEntryRatio(
+    _newMintEntryRatio: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  updateArcPrice(
+    _newPrice: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
   updateSilverCardsRange(
     _minRange: BigNumberish,
     _maxRange: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  withdraw(
+    _recipient: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -205,7 +241,9 @@ export class SilverConquestFactory extends Contract {
 
   getSkyweaverAssets(): Promise<string>;
 
-  getMintBurnRatio(): Promise<BigNumber>;
+  getMintEntryRatio(): Promise<BigNumber>;
+
+  getArcPrice(): Promise<BigNumber>;
 
   getAvailableSupply(): Promise<BigNumber>;
 
@@ -214,11 +252,13 @@ export class SilverConquestFactory extends Contract {
   supportsInterface(interfaceID: Arrayish): Promise<boolean>;
 
   filters: {
+    ArcPriceChange(oldPrice: null, newPrice: null): EventFilter;
+
     IdRangeUpdated(newRange: null): EventFilter;
 
-    MintBurnRatioChange(oldRatio: null, newRatio: null): EventFilter;
+    MintEntryRatioChange(oldRatio: null, newRatio: null): EventFilter;
 
-    NewTribute(user: null, nBurned: null): EventFilter;
+    NewTribute(user: null, nEntries: null): EventFilter;
 
     OwnershipTransferred(
       previousOwner: string | null,
@@ -231,12 +271,16 @@ export class SilverConquestFactory extends Contract {
 
     transferOwnership(_newOwner: string): Promise<BigNumber>;
 
-    updateMintBurnRatio(_newMintBurnRatio: BigNumberish): Promise<BigNumber>;
+    updateMintEntryRatio(_newMintEntryRatio: BigNumberish): Promise<BigNumber>;
+
+    updateArcPrice(_newPrice: BigNumberish): Promise<BigNumber>;
 
     updateSilverCardsRange(
       _minRange: BigNumberish,
       _maxRange: BigNumberish
     ): Promise<BigNumber>;
+
+    withdraw(_recipient: string): Promise<BigNumber>;
 
     onERC1155Received(
       _operator: string,
@@ -262,7 +306,9 @@ export class SilverConquestFactory extends Contract {
 
     getSkyweaverAssets(): Promise<BigNumber>;
 
-    getMintBurnRatio(): Promise<BigNumber>;
+    getMintEntryRatio(): Promise<BigNumber>;
+
+    getArcPrice(): Promise<BigNumber>;
 
     getAvailableSupply(): Promise<BigNumber>;
 
