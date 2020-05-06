@@ -4,8 +4,6 @@ import {
   AbstractContract, 
   expect,
   RevertError,
-  AssetRange,
-  BuyCardsObj,
   getBuyCardsData,
   ZERO_ADDRESS
 } from './utils'
